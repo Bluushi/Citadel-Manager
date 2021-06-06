@@ -42,7 +42,12 @@ public class citadelTimer extends BukkitRunnable {
 
 
         if (hours >= plugin.getConfig().getInt("citadel-cooldown-hours")){
-            plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + player.getName() + " parent remove " + plugin.getConfig().getString("citadel-winner-group"));
+            try{
+                plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), "lp user " + Statics.previousKing + " parent remove " + plugin.getConfig().getString("citadel-winner-group"));
+            }
+            catch(NullPointerException e){
+
+            }
             Map<String, ProtectedRegion> regions = container.get(Bukkit.getWorld("world")).getRegions();
             for (Map.Entry<String, ProtectedRegion> entry : regions.entrySet()){
                 if (entry.getValue().getFlag(CitadelManager.DarkCitadel) != null || entry.getValue().getFlag(CitadelManager.ThroneRoom) != null){
